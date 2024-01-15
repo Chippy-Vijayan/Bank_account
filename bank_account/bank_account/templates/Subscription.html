@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />    <title>Title</title>
+    <style>
+                 form {
+  width: 100%;
+  background-color :DarkBlue;
+  border: 15px solid gray;
+  padding: 50px;
+  margin: 20px;
+  }
+
+label {
+color:white;
+padding:8px;
+font-size:16px;
+
+}
+    </style>
+</head>
+<body>
+  {% if user.is_authenticated %}
+
+    <div class="container-fluid">
+    <nav class="navbar navbar-expand-sm bg-secondary navbar-dark ">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+        </div>
+    </nav>
+    <br><br>
+        <center>
+    <button id="btn" onclick="showForm()">Registration</button>
+    <script type="text/javascript">
+
+    function showForm() {
+        document.getElementById('form').style.display='block';
+    }
+
+</script>
+</center>
+<form id="form" style="display:none;" action="" align="center" method="POST">
+    {% csrf_token %}
+    <input type="text" name="Name" placeholder="Enter Name" required><br><br>
+    <input type="date" name="DOB" placeholder="Enter DOB" required><br><br>
+    <input type="text" name="Age" placeholder="Enter Age" required><br><br>
+    <input type="text" name="Gender" placeholder="Enter Gender" required><br><br>
+    <input type="tel" name="PhoneNumber" placeholder="Enter Phone Number"  required><br><br>
+    <input type="text" name="Mail" placeholder="Enter Mail ID" required><br><br>
+    <input type="text" name="Address" placeholder="Enter Address" required><br><br>
+    <label for="District">Choose Your District:</label>
+    <select name="District" id="District">
+    </select><br><br>
+    <label> Choose Your Branch:</label>
+    <select name="Branch" id="Branch">
+    </select><br><br>
+<script type = "text/javascript">
+        let Districts = ["Trivandrum","Kollam","Pathanamthitta","Alappuzha"];
+        let Trivandrum = ["Pattom","Attingal","Varkkala"];
+        let Kollam = ["Punaloor","Anchal","Thenmala"];
+        let Pathanamthitta = ["Pandalam","Adoor","Kulanada"];
+        let Alappuzha = ["Mavelikkara","Cherthala","Chunakkara"];
+
+
+        let select1 = document.getElementById("District");
+        let select2 = document.getElementById("Branch");
+
+        Districts.forEach(function addBranch(item) {
+                let option = document.createElement("option");
+                option.text = item;
+                option.value = item;
+                select1.appendChild(option);
+        });
+        select1.onchange =  function() {
+                select2.innerHTML = "<option></option>";
+                if (this.value == "Trivandrum") {
+                    addToselect2(Trivandrum);
+                }
+                if(this.value == "Kollam"){
+                    addToselect2(Kollam);
+                }
+                if(this.value == "Pathanamthitta") {
+                     addToselect2(Pathanamthitta);
+                }
+                if(this.value == "Alappuzha") {
+                     addToselect2(Alappuzha);
+                }
+        }
+        function addToselect2(arr) {
+                arr.forEach(function (item) {
+                    let option = document.createElement("option");
+                    option.text = item;
+                    option.value = item;
+                    select2.appendChild(option);
+                });
+        }
+</script>
+    <label for="District">Choose Your Account Type:</label>
+    <select name="Acctype" id="Acctype">
+    <option value="SavingsAcc">Savings account</option>
+    <option value="CurrentAcc">Current Account</option>
+    <option value="CashAcc">Cash Account</option>
+    <option value="CDAcc">CD Account</option>
+    </select><br><br>
+    <label>Materials Provide</label>
+    <input type="checkbox" name="DebitCard" id="DebitCard" value="DebitCard">
+      <label for="DebitCard">Debit Card</label><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="checkbox" name="CreditCard" id="CreditCard" value="CreditCard">
+      <label for="CreditCard">Credit Card</label><br>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="checkbox" name="MasterCard" id="MasterCard" value="MasterCard">
+      <label for="MasterCard">Master Card</label><br><br><br>
+    <input type="submit" name="submit" onclick="alertmsg()"><br><br>
+    <script>
+        function alertmsg(){
+          alert("Your Application Accepted");
+        }
+    </script>
+
+</form>
+</div>
+{% endif %}
+</body>
+</html>
+
